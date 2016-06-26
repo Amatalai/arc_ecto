@@ -11,8 +11,8 @@ defmodule Arc.Ecto.Definition do
         def dump(value), do: Arc.Ecto.Type.dump(unquote(definition), value)
       end
 
-      def url({%{file_name: file_name, updated_at: updated_at}, scope}, version, options) do
-        url = super({file_name, scope}, version, options)
+      def url({%{file_name: file_name, updated_at: updated_at, identifier: identifier}, scope}, version, options) do
+        url = super({%{file_name: file_name, identifier: identifier}, scope}, version, options)
 
         if options[:signed] do
           url
