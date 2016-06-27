@@ -9,7 +9,7 @@ defmodule Arc.Ecto.Type do
   end
 
   def load(_definition, value) do
-    [file_name, gsec, identifier] = String.split(value, ";", parts: 3)
+    [file_name, gsec, identifier] = String.split(value, "/", parts: 3)
 
     updated_at = case gsec do
       gsec when is_binary(gsec) ->
@@ -26,6 +26,6 @@ defmodule Arc.Ecto.Type do
 
   def dump(_definition, %{file_name: file_name, updated_at: updated_at, identifier: identifier}) do
     gsec = :calendar.datetime_to_gregorian_seconds(Ecto.DateTime.to_erl(updated_at))
-    {:ok, "#{file_name};#{gsec};#{identifier}"}
+    {:ok, "#{file_name}/#{gsec}/#{identifier}"}
   end
 end
